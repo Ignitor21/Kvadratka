@@ -2,9 +2,11 @@
 #include <math.h>
 
 const double EPSILON = 0.000000001;
+float x1 = 0, x2 = 0, d = 0;
 
 void solution(float a, float b, float c);
 int event(float a, float b, float c);
+void printResult(float n);
 
 int main(void)
 {
@@ -25,8 +27,10 @@ int main(void)
 				break;
 			case 2:
 				solution(a, b, c);
+				printResult(d);
 				break;
 		}
+		d = x1 = x2 = 0;
 		printf("Введите через пробел 3 коэффициента квадратного уравнения(введите q для выхода из программы):\n");
 	}
 	printf("Работа завершена :D\n");
@@ -45,12 +49,24 @@ int event(float a,  float b, float c)
 
 void solution(float a, float b, float c)
 {
-	float d;
 	d = b*b - 4 * a * c;
 	if (d > 0)
-		printf("Корни этого уравнения: %.2f %.2f\n", (-b + pow(d, 0.5))/(2 * a), (-b - pow(d, 0.5))/(2*a));
+	{
+		x1 = (-b - pow(d, 0.5)) / (2 * a);
+		x2 = (-b + pow(d, 0.5)) / (2 * a);
+	}
 	else if (fabs(d) < EPSILON)
-		printf("Корень этого уравнения: %.2f\n", -b / (2 * a));
+		x1 = x2 = -b / (2 * a);
+	
+}
+
+void printResult(float n)
+{
+	if (n > 0)
+		printf("Корни этого уравнения: %.2f и %.2f\n", x1, x2);
+	else if (fabs(n) < EPSILON)
+		printf("Корень этого уравнения: %.2f\n", x1);
 	else
 		printf("Нет корней!\n");
 }
+
