@@ -4,7 +4,6 @@
 const double EPSILON = 0.000000001;
 float x1 = 0, x2 = 0, d = 0;
 float a = 0, b = 0, c = 0;
-int variant = 0;
 
 void solution(float a, float b, float c);
 int event(float a, float b, float c);
@@ -12,24 +11,15 @@ void printResult(int n);
 
 int main(void)
 {
+	int variant = 0;
 	printf("Программа решения квадратного уравнения\n");
 	printf("Введите 3 коэффициента квадратного уравнения(введите q для выхода из программы): ");
 	while (scanf("%f %f %f", &a, &b, &c) == 3)
 	{
 		variant = event(a, b, c);
-		switch(variant)
-		{
-			case 0:
-				printResult(variant);
-				break;
-			case 1:
-				printResult(variant);
-				break;
-			case 2:
-				solution(a, b, c);
-				printResult(variant);
-				break;
-		}
+		if (variant == 2)
+			solution(a, b, c);
+		printResult(variant);	
 		printf("Введите через пробел 3 коэффициента квадратного уравнения(введите q для выхода из программы):\n");
 	}
 	printf("Работа завершена :D\n");
