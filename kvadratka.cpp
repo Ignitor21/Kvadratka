@@ -10,7 +10,7 @@ QUADRATIC
 };
 
 const double EPSILON = 0.000000001;
-float x1 = 0, x2 = 0, d = 0;
+float x1 = 0, x2 = 0, d = 0, d_sqrt = 0;
 float a = 0, b = 0, c = 0;
 
 void solution(float a, float b, float c);
@@ -48,11 +48,12 @@ enum Event variant(float a,  float b, float c)
 
 void solution(float a, float b, float c)
 {
-	d = b*b - 4 * a * c;
-	if (d > 0)
+	d = b*b - 4 * a * c, 0.5;
+	d_sqrt = pow(d, 0.5);
+	if (d_sqrt > 0)
 	{
-		x1 = (-b - pow(d, 0.5)) / (2 * a);
-		x2 = (-b + pow(d, 0.5)) / (2 * a);
+		x1 = (-b - d_sqrt) / (2 * a);
+		x2 = (-b + d_sqrt) / (2 * a);
 	}
 	else if (fabs(d) < EPSILON)
 		x1 = x2 = -b / (2 * a);
