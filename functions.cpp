@@ -2,12 +2,12 @@
 #include <math.h>
 #include "Header.h"
 
-bool isEqual(float a, float b)
+bool isEqual(const float a, const float b)
 {
 	return (fabs(a-b) < EPSILON);
 }
 
-enum variant solution(float a, float b, float c, float* x1, float* x2)
+enum variant solution(const float a, const float b, const float c, float* x1, float* x2)
 {
 	if (isEqual(a, 0) && isEqual(b, 0) && isEqual(c, 0))
 		return OTHER;
@@ -23,6 +23,7 @@ enum variant solution(float a, float b, float c, float* x1, float* x2)
 		float d = 0, d_sqrt = 0;
 		d = b * b - 4 * a * c;
 		d_sqrt = sqrt(d);
+
 		if (d < 0)
 			return QUADRATIC_0;
 		else if (isEqual(d, 0))
@@ -39,7 +40,7 @@ enum variant solution(float a, float b, float c, float* x1, float* x2)
 	}
 }
 
-void printResult(enum variant n, float x1, float x2)
+void printResult(const enum variant n, const float x1, const float x2)
 {
 	switch(n)
 	{
@@ -63,3 +64,14 @@ void printResult(enum variant n, float x1, float x2)
 		break;
 	}
 }
+
+void isInputCorrect(float* a, float* b, float* c)
+{
+	while (scanf("%f %f %f", a, b, c) != 3)
+	{
+		printf("Некорректный ввод! Введите 3 числа: ");
+		while (getchar() != '\n')
+			continue;
+	}
+}
+

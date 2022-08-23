@@ -13,7 +13,9 @@ enum variant
 
 const double EPSILON = 10E-8;
 
-void printResult(enum variant n, float x1, float x2);
-enum variant solution(float a, float b, float c, float* x1, float* x2);
+void printResult(const enum variant n, const float x1, const float x2);
+enum variant solution(const float a, const float b, const float c, float* x1, float* x2);
+void isInputCorrect(float* a, float* b, float *c);
+bool isEqual(const float a, const float b);
 
 #endif
