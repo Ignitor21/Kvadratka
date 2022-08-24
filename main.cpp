@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include "SquareSolver.h"
 
+/**
+*@brief Entry point
+
+*/
+
+
+
 int main(void)
 {	
 	double a = 0, b = 0, c = 0, x1 = 0, x2 = 0;
@@ -10,8 +17,7 @@ int main(void)
 	printf("Введите 3 коэффициента квадратного уравнения: ");
 	isInputCorrect(&a, &b, &c);
 	type = solveEquasion(a, b, c, &x1, &x2);
-	printResult(type, x1, x2);
-	printf("%lg %lg", x1, x2);
+	printResult(type, x1, x2);	
 	//unitTest();
 	printf("Работа завершена :D\n");
 

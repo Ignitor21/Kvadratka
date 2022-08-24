@@ -111,7 +111,6 @@ void isInputCorrect(double* a, double* b, double* c)
 	while (scanf("%lg %lg %lg", a, b, c) != 3)
 	{
 		printf("Некорректный ввод! Повторите попытку: ");
-		while (getchar() != '\n');
 	}
 }
 
@@ -178,7 +177,7 @@ void unitTest()
 
 	}
 	assert(type == QUADRATIC_2 && isEqual(x1, 2) && isEqual(x2, 3));
-x1 = 0, x2 = 0;
+	x1 = 0, x2 = 0;
 
 	type = solveEquasion(1, 2, 3, &x1, &x2);
 	if (!(type == QUADRATIC_0 && isEqual(x1, 0) && isEqual(x2, 0)))
