@@ -24,4 +24,5 @@ enum variant squareSolution(const double a, const double b, const double c, doub
 enum variant linearSolution(const double b, const double c, double* x1, double* x2);
 void printResult(const enum variant n, const double x1, const double x2);
 void unitTest();
+bool oneTest(const double a, const double b, const double c, const enum variant type_, double x1_, double x2_);
 #endif

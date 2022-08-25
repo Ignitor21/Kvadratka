@@ -116,80 +116,40 @@ void isInputCorrect(double* a, double* b, double* c)
 
 void unitTest()
 {
-	double x1 = 0, x2 = 0;
-	enum variant type = solveEquasion(0, 0, 0, &x1, &x2);
-	if (!(type == OTHER && isEqual(x1, 0) && isEqual(x2, 0)))
-	{
-		printf("FAILED; type = %d, x1 = %lg, x2 = %lg\nEXPECTED: type = %d, x1 = %lg, x2 = %lg", type, x1, x2, 0, .0, .0);
-
-	}
-	assert(type == OTHER && isEqual(x1, 0) && isEqual(x2, 0));
-	x1 = 0, x2 = 0;
-
-	type = solveEquasion(0, 0, 5, &x1, &x2);
-	if (!(type == NO_SOLUTIONS && isEqual(x1, 0) && isEqual(x2, 0)))
-	{
-		printf("FAILED; type = %d, x1 = %lg, x2 = %lg\nEXPECTED: type = %d, x1 = %lg, x2 = %lg", type, x1, x2, 1, .0, .0);
-
-	}
-	assert(type == NO_SOLUTIONS && isEqual(x1, 0) && isEqual(x2, 0));
-	x1 = 0, x2 = 0;
-
-	type = solveEquasion(0, 5, 0, &x1, &x2);
-	if (!(type == LINEAR && isEqual(x1, 0) && isEqual(x2, 0)))
-	{
-		printf("FAILED; type = %d, x1 = %lg, x2 = %lg\nEXPECTED: type = %d, x1 = %lg, x2 = %lg", type, x1, x2, 2, .0, .0);
-
-	}
-	assert(type == LINEAR && isEqual(x1, 0) && isEqual(x2, 0));
-	x1 = 0, x2 = 0;
-
-	type = solveEquasion(5, 0, 0, &x1, &x2);
-	if (!(type == QUADRATIC_1 && isEqual(x1, 0) && isEqual(x2, 0)))
-	{
-		printf("FAILED; type = %d, x1 = %lg, x2 = %lg\nEXPECTED: type = %d, x1 = %lg, x2 = %lg", type, x1, x2, 4, .0, .0);
-
-	}
-	assert(type == QUADRATIC_1 && isEqual(x1, 0) && isEqual(x2, 0));
-	x1 = 0, x2 = 0;
-
-	type = solveEquasion(0, 5, 1, &x1, &x2);
-	if (!(type == LINEAR && isEqual(x1, -0.2) && isEqual(x2, -0.2)))
-	{
-		printf("FAILED; type = %d, x1 = %lg, x2 = %lg\nEXPECTED: type = %d, x1 = %lg, x2 = %lg", type, x1, x2, 2, -1.2, -1.2);
-
-	}
-	assert(type == LINEAR && isEqual(x1, -0.2) && isEqual(x2, -0.2));
-	x1 = 0, x2 = 0;
-
-	type = solveEquasion(1, -2, 1, &x1, &x2);
-	if (!(type == QUADRATIC_1 && isEqual(x1, 1) && isEqual(x2, 1)))
-	{
-		printf("FAILED; type = %d, x1 = %lg, x2 = %lg\nEXPECTED: type = %d, x1 = %lg, x2 = %lg\n", type, x1, x2, 4, 1.0, 1.0);
-	}		
-	assert(type == QUADRATIC_1 && isEqual(x1, 1) && isEqual(x2, 1));
-	x1 = 0, x2 = 0;
-
-	type = solveEquasion(1, -5, 6, &x1, &x2);
-	if (!(type == QUADRATIC_2 && isEqual(x1, 2) && isEqual(x2, 3)))
-	{
-		printf("FAILED; type = %d, x1 = %lg, x2 = %lg\nEXPECTED: type = %d, x1 = %lg, x2 = %lg", type, x1, x2, 5 , 2.0, 3.0);
-
-	}
-	assert(type == QUADRATIC_2 && isEqual(x1, 2) && isEqual(x2, 3));
-	x1 = 0, x2 = 0;
-
-	type = solveEquasion(1, 2, 3, &x1, &x2);
-	if (!(type == QUADRATIC_0 && isEqual(x1, 0) && isEqual(x2, 0)))
-	{
-		printf("FAILED; type = %d, x1 = %lg, x2 = %lg \nEXPECTED: type = %d, x1 = %lg, x2 = %lg", type, x1, x2, 3, .0, .0);
-
-	}
-	assert(type == QUADRATIC_0 && isEqual(x1, 0) && isEqual(x2, 0));
-x1 = 0, x2 = 0;
-
+	int okTests = 0, tests = 0;
+	okTests += oneTest(0, 0, 0, OTHER, 0, 0);
+	tests++;
+	okTests += oneTest(0, 0, 1, NO_SOLUTIONS, 0, 0);
+	tests++;
+	okTests += oneTest(0, 1, 0, LINEAR, 0, 0);
+	tests++;
+	okTests += oneTest(1, 0, 0, QUADRATIC_1, 0, 0);
+	tests++;
+	okTests += oneTest(0, 1, 2, LINEAR, -2, -2);
+	tests++;
+	okTests += oneTest(1, 2, 3, QUADRATIC_0, 0, 0);
+	tests++;
+	okTests += oneTest(1, -2, 1, QUADRATIC_1, 1, 1);
+	tests++;
+	okTests += oneTest(1, -5, 6, QUADRATIC_2, 2, 3);
+	tests++;
+	printf("Успешных тестов: %d\nНеуспешных тестов: %d\n", okTests, tests - okTests);
 }
-
+bool oneTest (const double a, const double b, const double c, const enum variant type_, double x1_, double x2_)
+{
+	double x1 = 0, x2 = 0;
+	enum variant type = solveEquasion(a, b, c, &x1, &x2);
+	if (!(type == type_ && isEqual(x1, x1_) && isEqual(x2, x2_)))
+	{
+		printf("НЕУСПЕШНО: type = %d, x1 = %lg, x2 = %lg \nОЖИДАЛОСЬ: type = %d, x1 = %lg, x2 = %lg\n", type, x1, x2, type_, x1_, x2_);
+		return 0;
+	}
+	else
+	{
+		printf("ТЕСТ УСПЕШЕН!\n");
+		return 1;
+	}
+}
 /*enum variant
 {
 	OTHER,
