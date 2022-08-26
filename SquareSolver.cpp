@@ -150,13 +150,4 @@ bool oneTest (const double a, const double b, const double c, const enum variant
 		return 1;
 	}
 }
-/*enum variant
-{
-	OTHER,
-	NO_SOLUTIONS,
-	LINEAR,
-	QUADRATIC_0,
-	QUADRATIC_1,
-	QUADRATIC_2
-};*/
 

@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 
 	if (argc < 2)
 	{
-		printf("Введите флаги компиляции(solve, test)\n");
+		printf("Введите флаги запуска (solve, test)\n");
 		exit(1);
 	}
 
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
 		else
 		{
-			printf("Введите правильный флаг запуска: (solve, test)\n");
+			printf("Введите правильный флаг запуска (solve, test)\n");
 			exit(1);
 		}
 	}
