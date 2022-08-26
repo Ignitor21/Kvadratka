@@ -1,6 +1,12 @@
 #ifndef _SquareSolver_h
 #define _SquareSolver_h
-
+/**
+* @brief Entry point
+*
+* Execution of the program
+* starts here.
+*
+*/
 enum variant
 {
 	OTHER,
