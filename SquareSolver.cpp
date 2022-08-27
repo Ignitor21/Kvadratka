@@ -6,6 +6,9 @@ static const double EPSILON = 10E-8;
 
 bool isEqual(const double a, const double b)
 {
+	assert(isfinite(a));
+	assert(isfinite(b));
+
 	return (fabs(a-b) < EPSILON);
 }
 
@@ -75,7 +78,7 @@ enum variant squareSolution(const double a, const double b, const double c, doub
 	return QUADRATIC_2;
 }
 
-void printResult(const enum variant n, const double x1, const double x2)
+void printResult(const variant n, const double x1, const double x2)
 {
 	switch(n)
 	{
@@ -107,6 +110,7 @@ void isInputCorrect(double* a, double* b, double* c)
 	assert(a != nullptr);
 	assert(b != nullptr);
 	assert(c != nullptr);
+
 	while (scanf("%lg %lg %lg", a, b, c) != 3)
 	{
 		printf("Некорректный ввод! Повторите попытку: ");
@@ -116,41 +120,41 @@ void isInputCorrect(double* a, double* b, double* c)
 
 void unitTest()
 {
+	constexpr int numberOfTests = 8;
+	int okTests = 0;
+
+	struct test_data test_list[numberOfTests] = {
+	{0, 0, 0, OTHER, 0, 0},
+	{0, 0, 1, NO_SOLUTIONS, 0, 0},
+	{0, 1, 0, LINEAR, 0, 0},
+	{1, 0, 0, QUADRATIC_1, 0, 0},
+	{0, 1, 2, LINEAR, -2, -2},
+	{1, 2, 3, QUADRATIC_0, 0, 0},
+	{1, -2, 1, QUADRATIC_1, 1, 1},
+	{1, -5, 6, QUADRATIC_2, 2, 3}
+	};
 	
-	int okTests = 0, tests = 0;
-	okTests += oneTest(0, 0, 0, OTHER, 0, 0);
-	tests++;
-	okTests += oneTest(0, 0, 1, NO_SOLUTIONS, 0, 0);
-	tests++;
-	okTests += oneTest(0, 1, 0, LINEAR, 0, 0);
-	tests++;
-	okTests += oneTest(1, 0, 0, QUADRATIC_1, 0, 0);
-	tests++;
-	okTests += oneTest(0, 1, 2, LINEAR, -2, -2);
-	tests++;
-	okTests += oneTest(1, 2, 3, QUADRATIC_0, 0, 0);
-	tests++;
-	okTests += oneTest(1, -2, 1, QUADRATIC_1, 1, 1);
-	tests++;
-	okTests += oneTest(1, -5, 6, QUADRATIC_2, 2, 3);
-	tests++;
-	printf("Успешных тестов: %d\nНеуспешных тестов: %d\n", okTests, tests - okTests);
+	for (int i = 0; i < numberOfTests; i++)
+	{
+		okTests += oneTest(test_list[i]);
+	}
+	printf("Успешных тестов: %d\nНеуспешных тестов: %d\n", okTests, numberOfTests - okTests);
 }
 
-bool oneTest (const double a, const double b, const double c, const variant type_, double x1_, double x2_)
+bool oneTest (test_data testik)
 {
-	assert(isfinite(a));
-	assert(isfinite(b));
-	assert(isfinite(c));
-	assert(isfinite(x1_));
-	assert(isfinite(x2_));
+	assert(isfinite(testik.a));
+	assert(isfinite(testik.b));
+	assert(isfinite(testik.c));
+	assert(isfinite(testik.x1_expected));
+	assert(isfinite(testik.x2_expected));
 
 	double x1 = 0, x2 = 0;
-	variant type = isEqual(a, 0) ? linearSolution(b, c, &x1, &x2): squareSolution(a, b, c, &x1, &x2);
+	variant type = isEqual(testik.a, 0) ? linearSolution(testik.b, testik.c, &x1, &x2): squareSolution(testik.a, testik.b, testik.c, &x1, &x2);
 
-	if (!(type == type_ && isEqual(x1, x1_) && isEqual(x2, x2_)))
+	if (!(type == testik.type_expected && isEqual(x1, testik.x1_expected) && isEqual(x2, testik.x2_expected)))
 	{
-		printf("НЕУСПЕШНО: type = %d, x1 = %lg, x2 = %lg \nОЖИДАЛОСЬ: type = %d, x1 = %lg, x2 = %lg\n", type, x1, x2, type_, x1_, x2_);
+		printf("НЕУСПЕШНО: type = %d, x1 = %lg, x2 = %lg \nОЖИДАЛОСЬ: type = %d, x1 = %lg, x2 = %lg\n", type, x1, x2, testik.type_expected, testik.x1_expected, testik.x2_expected);
 		return 0;
 	}
 
