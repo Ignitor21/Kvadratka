@@ -3,6 +3,14 @@
 #include <string.h>
 #include "SquareSolver.h"
 
+/*!
+@brief Программа решения квадратного уравнения
+@author Jorik
+@version 1.0
+@date Август 2022
+Данное творение способно решать любые квадратные уравнения! Я потратил на эту прогу очень много сил и времени,
+*/
+
 int main(int argc, char* argv[])
 {	
 

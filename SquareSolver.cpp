@@ -1,8 +1,16 @@
 #include <stdio.h>
 #include <math.h>
-#include "SquareSolver.h"
 #include <cassert>
+#include "SquareSolver.h"
+
 static const double EPSILON = 10E-8;
+
+/*!
+@brief Сравнивает два числа типа double
+@param[in] a Первое число
+@param[in] b Второе число
+@return Возвращает 1, если числа равны с определенной точностью, 0 - в противном случае
+*/
 
 bool isEqual(const double a, const double b)
 {
@@ -11,6 +19,16 @@ bool isEqual(const double a, const double b)
 
 	return (fabs(a-b) < EPSILON);
 }
+
+
+/*!
+@brief Решает линейное уравнение  
+@param[in] b Коэффициент при х
+@param[in] c Свободный член
+@param[out] x1 Корень уравнения
+@param[out] x2 Корень уравнения (В данном случае корни всегда будут равны)
+@return Возвращает enum-вский тип, говорящий о количестве корней уравнения (нет корней, 1 корень, бесконечно много корней)
+*/
 
 enum variant linearSolution(const double b, const double c, double* x1, double* x2)
 {
@@ -28,6 +46,16 @@ enum variant linearSolution(const double b, const double c, double* x1, double* 
 	*x1 = *x2 = -c / b;
 	return LINEAR;
 }
+
+/*!
+@brief Решает квадратное уравнение
+@param[in] a Коэффициент при x^2
+@param[in] b Коэффициент при х
+@param[in] c Свободный член
+@param[out] x1 Корень уравнения
+@param[out] x2 Корень уравнения 
+@return Возвращает enum-вский тип, говорящий о количестве корней уравнения (нет корней, 1 корень, 2 корня, бесконечно много корней)
+*/
 
 enum variant squareSolution(const double a, const double b, const double c, double* x1, double* x2)
 {
@@ -78,6 +106,13 @@ enum variant squareSolution(const double a, const double b, const double c, doub
 	return QUADRATIC_2;
 }
 
+/*!
+@brief Вывод результатов решения уравнения на экран  
+@param[in] n enum-овский тип, говорящий о количестве корней уравнения
+@param[in] x1 1-ый корень
+@param[in] x2 2-ый корень
+*/
+
 void printResult(const variant n, const double x1, const double x2)
 {
 	switch(n)
@@ -105,6 +140,13 @@ void printResult(const variant n, const double x1, const double x2)
 	}
 }
 
+/*!
+@brief Проверка корректности ввода  
+@param[in] a Указатель на коэффициент при x^2
+@param[in] b Указатель на коэффициент при x
+@param[in] c Указатель на свободный член
+*/
+
 void isInputCorrect(double* a, double* b, double* c)
 {
 	assert(a != nullptr);
@@ -117,6 +159,11 @@ void isInputCorrect(double* a, double* b, double* c)
 		while (getchar() != '\n');
 	}
 }
+
+
+/*!
+@brief Функция, прогоняющая данные для тестов
+*/
 
 void unitTest()
 {
@@ -140,6 +187,12 @@ void unitTest()
 	}
 	printf("Успешных тестов: %d\nНеуспешных тестов: %d\n", okTests, numberOfTests - okTests);
 }
+
+/*!
+@brief Тестирующая функция
+@param[in] testik(структура test_data)
+@return Возвращает 1, если тест успешен, 0 - в противном случае
+*/
 
 bool oneTest (test_data testik)
 {

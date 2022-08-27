@@ -1,21 +1,22 @@
 #ifndef _SquareSolver_h
 #define _SquareSolver_h
 
+/// Варианты возможного количества корней уравнения 
+
 enum variant
 {
-	OTHER,
-	NO_SOLUTIONS,
-	LINEAR,
-	QUADRATIC_0,
-	QUADRATIC_1,
-	QUADRATIC_2
+	OTHER, ///< Все коэффициенты 0
+	NO_SOLUTIONS, ///< Линейное уравнение без корней
+	LINEAR, ///< Линейное уравнение с 1 корнем
+	QUADRATIC_0,///< Квадратное уравнение без корней
+	QUADRATIC_1, ///< Квадратное уравнение с 1 корнем
+	QUADRATIC_2 ///< Квадратное уравнение с 2 корнями
 };
 
-enum step
-{
-	SOLVE = 1,
-	FINISH = 2 
-};
+
+/*!
+@brief Структура для тестов
+*/
 
 struct test_data {
 	double a;
