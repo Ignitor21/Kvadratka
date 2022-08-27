@@ -214,3 +214,24 @@ bool oneTest (test_data testik)
 	printf("ТЕСТ УСПЕШЕН!\n");
 	return 1;
 }
+
+/*!
+@brief Функция принимающая тесты из файла
+*/
+
+void testFromFile()
+{
+	FILE *fp = fopen("tests.txt", "r");
+	int numberOfTests = 0, okTests = 0;
+	test_data testik = {};
+
+	fscanf(fp, "%d", &numberOfTests); 
+
+	for (int i = 0; i < numberOfTests; i++)
+	{
+		fscanf(fp, "%lg %lg %lg %d %lg %lg", &testik.a, &testik.b, &testik.c, &testik.type_expected, &testik.x1_expected, &testik.x2_expected);
+		okTests += oneTest(testik);
+	}
+	fclose(fp);
+	printf("Успешных тестов: %d\nВсего тестов: %d\n", okTests, numberOfTests);
+}

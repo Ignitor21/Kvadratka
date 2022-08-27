@@ -44,6 +44,12 @@ int main(int argc, char* argv[])
 			return 0;
 		}
 
+		if (!strncmp(argv[i], "file", 20))
+			{
+				testFromFile();
+				return 0;
+			}
+
 		printf("Введите правильный флаг запуска (solve, test)\n");
 		exit(1);
 	}
