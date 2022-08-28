@@ -221,7 +221,8 @@ bool oneTest (test_data testik)
 
 void testFromFile()
 {
-	FILE *fp = fopen("tests.txt", "r");
+	FILE *fp = NULL; 
+	fp = fopen("test.txt", "r");
 	int numberOfTests = 0, okTests = 0;
 	test_data testik = {};
 
@@ -232,6 +233,7 @@ void testFromFile()
 		fscanf(fp, "%lg %lg %lg %d %lg %lg", &testik.a, &testik.b, &testik.c, &testik.type_expected, &testik.x1_expected, &testik.x2_expected);
 		okTests += oneTest(testik);
 	}
+
 	fclose(fp);
 	printf("Успешных тестов: %d\nВсего тестов: %d\n", okTests, numberOfTests);
 }
